@@ -1,0 +1,45 @@
+<template>
+    <template if:true={recordId}>
+        <div class="slds-box slds-theme_default">
+            <template if:false={loaded}>
+                <div class="slds-is-relative">
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+            </template>
+            <lightning-record-edit-form 
+                record-id={recordId}
+                object-api-name="Account"
+                onsubmit={handleSave}
+                onsuccess={handleSuccess}
+                onerror={handleError}>
+                <template if:true={editMode}>
+                    <c-lookup
+                        config={lookupConfiguration}
+                        onvaluechangeevent={handleValueChange}
+                    ></c-lookup>
+                    <lightning-button 
+                        title="Cancel" 
+                        label="Cancel" 
+                        onclick={handleCancel} 
+                        variant="neutral">
+                    </lightning-button>
+                    <lightning-button 
+                        title="Save" 
+                        label="Save" 
+                        type="submit" 
+                        variant="brand" 
+                        disabled={saveDisabled}>
+                    </lightning-button>
+                </template>
+                <template if:false={editMode}>
+                    
+                    <lightning-output-field field-name="Name"> </lightning-output-field>
+                    <lightning-button title="Edit" label="Edit" onclick={handleEdit} variant="neutral">
+                    </lightning-button>
+                    
+                </template>
+            </lightning-record-edit-form>
+        </div>
+
+    </template>
+</template>

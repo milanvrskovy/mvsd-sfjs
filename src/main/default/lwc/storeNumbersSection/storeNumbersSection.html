@@ -1,0 +1,58 @@
+<template>
+    <template if:true={ready}>
+    <div class="slds-section slds-is-open" data-id="store_numbers_section">
+        <h3 class="slds-section__title label slds-truncate slds-p-around_xx-small slds-theme_shade">
+            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action" onclick={toggleSection}>
+                <div class="slds-section__title-action-icon slds-button__icon slds-button__icon_left slds-icon-utility-switch slds-icon_container">
+                    <svg class="slds-icon slds-icon-text-default slds-icon_x-small" aria-hidden="true">
+                        <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#switch"></use>
+                    </svg>
+                </div>
+                <span class="slds-truncate" title="Section Title">Campaign Stores</span>
+            </button>
+        </h3>
+        <div class="slds-section__content">
+            <div class="slds-grid slds-wrap section-content slds-section__content slds-size_1-of-1 slds-gutters">
+                <template if:true={showSpinner}>
+                    <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                </template>
+                <div class="slds-col slds-size_1-of-2">
+                    <div class=" slds-p-horizontal_small slds-p-vertical_x-small">
+                        <div class="slds-form-element slds-form-element_readonly slds-hint-parent test-id__output-root slds-form-element_stacked">
+                            <span class="slds-form-element__label">Store Numbers</span>
+                            <lightning-helptext content={fieldSchema.Store_Numbers__c.inlineHelpText}></lightning-helptext>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static flex-wrap-ie11">
+                                    <c-field-modal-display onrefresh={handleRefreshChildren} field-content={fieldContent.storenumFields} record={record}></c-field-modal-display>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_readonly slds-hint-parent test-id__output-root slds-form-element_stacked">
+                            <span class="slds-form-element__label">Actual Store Numbers</span>
+                            <lightning-helptext content={fieldSchema.Actual_Store_Numbers__c.inlineHelpText}></lightning-helptext>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static flex-wrap-ie11">
+                                    <c-field-modal-display onrefresh={handleRefreshChildren} field-content={fieldContent.actualStorenumFields} record={record} readonly></c-field-modal-display>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <div class=" slds-p-horizontal_small slds-p-vertical_x-small">
+                        <div class="slds-form-element slds-form-element_readonly slds-hint-parent test-id__output-root slds-form-element_stacked">
+                            <span class="slds-form-element__label">Confirmed Store Numbers</span>
+                            <lightning-helptext content={fieldSchema.ConfirmedStoreNumbers__c.inlineHelpText}></lightning-helptext>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static flex-wrap-ie11">
+                                    <c-field-modal-display onrefresh={handleRefreshChildren} field-content={fieldContent.confirmedStorenumFields} record={record}></c-field-modal-display>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </template>
+</template>

@@ -1,0 +1,57 @@
+<template>
+    <button class="custom_button" onclick={openModal}>{linkLabel}</button> 
+    <template if:false={readOnly}>
+        <div class="icon slds-float--right ">
+            <button class="test-id__inline-edit-trigger slds-shrink-none inline-edit-trigger slds-button slds-button_icon" title="Edit" onclick={openModal}>
+                <svg class="slds-button__icon" aria-hidden="true">
+                <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#edit"></use>
+                </svg>
+                <span class="slds-assistive-text">Edit</span>
+            </button>
+        </div>
+    </template>
+    <template if:true={modalContainer}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+            class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                    title="Close" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                        size="small"></lightning-icon>
+                </button>
+                <div class="slds-modal__content slds-p-around_medium slds-is-relative" id="modal-content-id-1">
+                    <template if:true={showSpinner}>
+                        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                    </template>
+                    <template for:each={fieldList} for:item="field">
+                        <template if:false={field.isPicklist}>
+                            <lightning-textarea 
+                                name={field.apiName}
+                                key={field.apiName}
+                                label={field.label}
+                                value={field.value}
+                                read-only={readOnly}>
+                            </lightning-textarea>
+                        </template>
+                        <template if:true={field.isPicklist}>
+                            <lightning-combobox
+                                name={field.apiName}
+                                value={field.value}
+                                label={field.label}
+                                key={field.apiName}
+                                options={field.picklistValues}>
+                            </lightning-combobox>
+                        </template>
+                    </template>
+                </div>
+                <template if:false={readOnly}>
+                <div class="slds-modal__footer">
+                    <lightning-button variant="brand" label="Save" title="Save"
+                        onclick={handleSave}></lightning-button>
+                </div>
+                </template>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template> 
+</template>

@@ -1,0 +1,28 @@
+<template>
+    <template if:true={config}>
+        
+            <lightning-card>
+                <lightning-input
+                    label={config.fieldLabel}
+                    type={config.type}
+                    onchange={onChange}
+                    value={searchTerm}
+                    required={config.required}
+                ></lightning-input>
+                <template if:true={results}>  
+                    <div class="slds-box">
+                        <div class="slds-text-heading_small">{config.resultsLabel}</div>
+                        <template iterator:it={results} for:index="index">  
+                            <div onclick={onSelect} key={it.value.Id} data-id={it.value.Id} style="cursor: pointer;">  
+                                <div class="slds-m-around_medium">                              
+                                    <lightning-formatted-rich-text value={it.value.formattedName}>
+                                    </lightning-formatted-rich-text>  
+                                </div>  
+                            </div>  
+                        </template>
+                    </div>
+                </template>
+            </lightning-card>
+        
+    </template>
+</template>

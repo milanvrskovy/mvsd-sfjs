@@ -1,0 +1,11 @@
+.custom_button{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    cursor: pointer;
+    margin: 2px;
+    border-bottom: 1px dotted;
+    color: rgb(1, 118, 211);
+    font-size: 0.875rem;
+    font-weight: 400;
+}

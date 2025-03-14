@@ -1,0 +1,112 @@
+<!-- sldsValidatorIgnore - hiding datatable accessibility warning -->
+<template>
+    <template if:true={viewAll}>
+        <lightning-button
+            label="< Back to Media Campaign"
+            onclick={closeViewAll}
+            variant="base"
+        ></lightning-button>
+    </template>
+    <lightning-card title="Campaign Evaluation" icon-name="custom:custom62">
+        <lightning-button
+            icon-name="action:refresh"
+            title="Refresh"
+            variant="base"
+            slot="actions"
+            onclick={handleRefresh}
+        >
+        </lightning-button>
+        <div class="slds-var-m-around_medium">
+            <template lwc:if={campaignItems}>
+                <c-campaign-evaluation-table-custom-data-type
+                    key-field="Id"
+                    data={campaignItems}
+                    columns={columns}
+                    oncancel={handleCancel}
+                    onsave={handleSave}
+                    draft-values={draftValues}
+                    column-widths-mode={columnsWidthMode}
+                    hide-checkbox-column
+                    onrowaction={callRowAction}
+                    oncellchange={handleCellChange}
+                >
+                </c-campaign-evaluation-table-custom-data-type>
+            </template>
+            <template if:false={campaignItems}>
+                <p class="slds-p-horizontal_small">
+                    For campaign evaluation data to be shown, please ensure the
+                    campaign has a campaign item with populated "Reach" field.
+                </p>
+            </template>
+            <template if:false={loaded}>
+                <lightning-spinner
+                    alternative-text="Loading"
+                ></lightning-spinner>
+            </template>
+            <template if:true={modalContainer}>
+                <section
+                    role="dialog"
+                    tabindex="-1"
+                    aria-modal="true"
+                    aria-labelledby="modal-heading-1"
+                    class="slds-modal slds-fade-in-open slds-modal_small"
+                >
+                    <div class="slds-modal__container">
+                        <button
+                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close"
+                            onclick={closeModalAction}
+                        >
+                            <lightning-icon
+                                icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small"
+                            ></lightning-icon>
+                        </button>
+                        <div class="slds-modal__header">
+                            <h1
+                                id="modal-heading-01"
+                                class="slds-modal__title slds-hyphenate"
+                            >
+                                {currentModal.fieldLabel}
+                            </h1>
+                        </div>
+                        <div
+                            class="slds-modal__content slds-p-around_medium"
+                            id="modal-content-id-1"
+                        >
+                            <lightning-textarea
+                                name="StoreNumbers"
+                                label={currentModal.fieldLabel}
+                                value={currentModal.fieldValue}
+                            >
+                            </lightning-textarea>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <lightning-button
+                                variant="brand"
+                                label="Submit"
+                                title="Close"
+                                onclick={handleChange}
+                            ></lightning-button>
+                        </div>
+                    </div>
+                </section>
+                <div
+                    class="slds-backdrop slds-backdrop_open"
+                    role="presentation"
+                ></div>
+            </template>
+        </div>
+        <template if:false={viewAll}>
+            <div slot="footer" class="slds-align_absolute-center">
+                <lightning-button
+                    label="View All"
+                    onclick={openViewAll}
+                    variant="base"
+                ></lightning-button>
+            </div>
+        </template>
+    </lightning-card>
+</template>

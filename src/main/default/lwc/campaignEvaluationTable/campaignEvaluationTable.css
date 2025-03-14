@@ -1,0 +1,5 @@
+.myTable table>thead .slds-cell-fixed, .myTable table>thead .slds-cell-fixed:hover{
+    background: antiquewhite;
+    color:#000;
+    background-color:#e06000;
+}

@@ -13,7 +13,7 @@ public with sharing class AHMS_LookupController {
             final Configuration configuration = (Configuration)JSON.deserialize(configurationInput, Configuration.class);
             return sortResults(Database.query(configuration.generateQuery(searchTerm)));
         } catch (Exception e) {
-            throw AHMS_ExceptionHandling.lightningException(e.getMessage());
+            //throw AHMS_ExceptionHandling.lightningException(e.getMessage());
         }
     }
 
